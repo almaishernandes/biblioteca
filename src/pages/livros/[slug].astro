@@ -1,0 +1,101 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const livros = await getCollection('livros');
+  return livros.map((livro) => ({
+    params: { slug: livro.slug },
+    props: { livro },
+  }));
+}
+
+const { livro } = Astro.props;
+const { Content, headings } = await render(livro);
+---
+<Layout title={`${livro.data.titulo} — Instituto Hernandes`}>
+  <a class="back-link" href="/">← Voltar à Biblioteca</a>
+
+  <div class="book">
+    <section class="page type-cover">
+      <div class="page-content">
+        <h1>{livro.data.titulo}</h1>
+        {livro.data.subtitulo && <p class="subtitle">{livro.data.subtitulo}</p>}
+        <div class="rule"></div>
+        <p class="author-name">{livro.data.autor}</p>
+      </div>
+    </section>
+
+    {headings.length > 0 && (
+      <section class="page type-toc">
+        <div class="page-content">
+          <h1>Sumário</h1>
+          <div class="toc-list">
+            {headings.filter((h) => h.depth <= 2).map((h) => (
+              <div class="toc-item">
+                <span class="toc-title">{h.text}</span>
+                <span class="toc-fill"></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="page type-content">
+      <div class="page-content">
+        <Content />
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .back-link{
+    display: block;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .back-link:hover{ color: var(--accent); }
+
+  .book{ max-width: 720px; margin: 0 auto; padding: 20px 16px 80px; }
+  .page{
+    background: var(--paper);
+    box-shadow: 0 8px 30px rgba(60,50,30,0.2);
+    border-radius: 3px;
+    margin-bottom: 28px;
+    padding: 50px 60px;
+    font-family: 'Merriweather', Georgia, serif;
+  }
+  .page-content{ font-size: 17px; line-height: 1.85; text-align: justify; hyphens: auto; }
+  .page-content :global(h1){ font-size: 28px; text-align: center; margin: 10px 0 6px; letter-spacing: .5px; }
+  .page-content :global(h2){ font-size: 20px; text-align: center; margin: 30px 0 14px; font-weight: 700; font-style: italic; }
+  .page-content :global(p){ margin: 0 0 14px; text-indent: 2.6em; }
+
+  .type-cover{ background: linear-gradient(160deg, #2C2C2C, #463a2c); color: #FDFBF7; text-align: center; }
+  .type-cover .page-content{ text-indent: 0; }
+  .type-cover .page-content :global(h1){ font-size: 36px; letter-spacing: 1px; }
+  .type-cover .subtitle{ font-style: italic; color: var(--accent-soft); text-indent: 0; }
+  .type-cover .rule{ width: 60px; height: 1px; background: var(--accent-soft); margin: 14px auto; }
+  .type-cover .author-name{ text-transform: uppercase; letter-spacing: 3px; font-size: 14px; text-indent: 0; }
+
+  .type-toc .page-content{ text-indent: 0; }
+  .toc-list{ display: flex; flex-direction: column; gap: 2px; }
+  .toc-item{ display: flex; align-items: baseline; gap: 6px; font-size: 16px; padding: 8px 0; border-bottom: 1px dotted #cfc7b6; }
+  .toc-fill{ flex: 1; border-bottom: 1px dotted #cfc7b6; margin-bottom: 4px; }
+
+  @media (max-width: 600px){
+    .book{ padding: 12px 10px 60px; }
+    .page{ padding: 28px 20px; margin-bottom: 18px; }
+    .page-content{ font-size: 15.5px; text-align: left; }
+    .page-content :global(p){ text-indent: 1.4em; }
+    .page-content :global(h1){ font-size: 22px; }
+    .page-content :global(h2){ font-size: 17px; }
+    .type-cover .page-content :global(h1){ font-size: 26px; }
+    .toc-item{ font-size: 14px; }
+  }
+</style>

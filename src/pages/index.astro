@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const livros = (await getCollection('livros')).sort(
+  (a, b) => b.data.dataPublicacao.valueOf() - a.data.dataPublicacao.valueOf()
+);
+---
+<Layout title="Biblioteca de Livros — Instituto Hernandes">
+  <header>
+    <h1>Biblioteca de Livros</h1>
+    <p>Instituto Hernandes</p>
+  </header>
+
+  <div class="lib-grid">
+    {livros.map((livro) => (
+      <a class="lib-card" href={`/livros/${livro.slug}/`}>
+        <div class="lib-cover" style={`background-image:url(${livro.data.capa})`}>
+          <span class="lib-cover-cat">{livro.data.categoria}</span>
+          <span class="lib-cover-title">{livro.data.titulo}</span>
+          <span class="lib-cover-author">{livro.data.autor}</span>
+        </div>
+        <div class="lib-info">
+          <h3>{livro.data.titulo}</h3>
+          <p>{livro.data.descricaoCurta}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  header{ text-align: center; padding: 50px 20px 20px; }
+  header h1{ font-family: 'Merriweather', Georgia, serif; color: var(--accent); font-size: 28px; margin: 0 0 6px; }
+  header p{ color: var(--ink-soft); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin: 0; }
+
+  .lib-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 26px;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px 60px;
+  }
+  .lib-card{ text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+  .lib-cover{
+    background-color: #2C2C2C;
+    background-size: cover;
+    background-position: center;
+    color: #FDFBF7;
+    aspect-ratio: 2 / 3;
+    border-radius: 4px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    gap: 8px;
+    transition: transform .15s ease;
+  }
+  .lib-card:hover .lib-cover{ transform: translateY(-4px); }
+  .lib-cover-cat{
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-soft);
+    background: rgba(0,0,0,0.35);
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+  .lib-cover-title{ font-family: 'Merriweather', Georgia, serif; font-weight: 700; font-size: 15px; }
+  .lib-cover-author{ font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-soft); }
+  .lib-info{ text-align: center; margin-top: 10px; }
+  .lib-info h3{ font-size: 14px; margin: 0; }
+  .lib-info p{ font-size: 12px; color: var(--ink-soft); margin: 4px 0 0; }
+</style>

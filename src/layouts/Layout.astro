@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+    :root{
+      --paper: #FDFBF7;
+      --ink: #2C2C2C;
+      --ink-soft: #6b6660;
+      --accent: #8a6d4b;
+      --accent-soft: #cbb89a;
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(160deg, #ECEAE5, #E4E1DA);
+      font-family: 'EB Garamond', Georgia, serif;
+      color: var(--ink);
+    }
+    a{ color: inherit; }
+  </style>
+  <slot name="head" />
+</head>
+<body>
+  <slot />
+</body>
+</html>
