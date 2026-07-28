@@ -1,6 +1,6 @@
 ---
 titulo: "A Oração pelo Caminho"
-subtitulo: "Oração"
+subtitulo: "Oração está entre o barulho dos homens e o abraço do silêncio de Deus"
 autor: "Francisco Hernandes"
 categoria: "Vida Espiritual"
 capa: "/capas/a-oracao-pelo-caminho.jpg"
