@@ -1,10 +1,10 @@
 ---
 titulo: "Oração pelo Caminho"
-subtitulo: "Oração é silenciar o coração em meio às tempestades do mundo, nos dias de hoje a oração está entre o barulho dos homens e o abraço do silêncio de Deus"
+subtitulo: "Oração é silenciar o coração em meio às tempestades do mundo, nos dias de hoje a oração está entre o barulho dos homens e o abraço do silêncio de Deus."
 autor: "Francisco Hernandes"
 categoria: "Vida Espiritual"
 capa: "/capas/a-oracao-pelo-caminho.jpg"
-descricaoCurta: "Uma reflexão sobre fé, silêncio e a coragem de continuar caminhando mesmo sem respostas prontas."
+descricaoCurta: "Uma reflexão sobre fé, silêncio e coragem de continuar a vida mesmo sem respostas, com paciência, silêncio e recomeço."
 dataPublicacao: 2026-07-27
 ---
 
