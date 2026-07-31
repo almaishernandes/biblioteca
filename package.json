@@ -1,13 +1,27 @@
 {
-  "name": "biblioteca-astro",
+  "name": "biblioteca-de-livros",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "admin:build": "esbuild admin/src/main.jsx --bundle --outfile=admin/public/bundle.js --loader:.js=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\"",
+    "admin:watch": "esbuild admin/src/main.jsx --bundle --outfile=admin/public/bundle.js --loader:.js=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\" --watch",
+    "admin": "npm run admin:build && node admin/server.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "@tiptap/pm": "^3.29.2",
+    "@tiptap/react": "^3.29.2",
+    "@tiptap/starter-kit": "^3.29.2",
+    "esbuild": "^0.28.1",
+    "express": "^5.2.1",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tiptap-markdown": "^0.9.0"
   }
 }

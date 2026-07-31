@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editor de Livros — Biblioteca</title>
+  <style>
+    :root{ --paper:#FDFBF7; --ink:#2C2C2C; --ink-soft:#6b6660; --accent:#8a6d4b; --accent-soft:#cbb89a; }
+    *{ box-sizing: border-box; }
+    body{ margin:0; font-family: system-ui, sans-serif; color: var(--ink); background: #ECEAE5; }
+    .app{ display:flex; height:100vh; }
+    .sidebar{ width:260px; background: var(--ink); color: var(--paper); display:flex; flex-direction:column; padding:16px; overflow-y:auto; flex-shrink:0; }
+    .sidebar ul{ list-style:none; padding:0; margin:12px 0 0; }
+    .sidebar li{ padding:10px 8px; border-radius:6px; cursor:pointer; display:flex; flex-direction:column; gap:2px; }
+    .sidebar li:hover{ background: rgba(255,255,255,0.08); }
+    .sidebar li.active{ background: var(--accent); }
+    .sidebar li span{ font-size:12px; color: var(--accent-soft); }
+    .btn-new{ background: var(--accent); color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; font-size:14px; }
+    .editor-pane{ flex:1; padding:24px 32px; overflow-y:auto; }
+    .fields{ display:grid; grid-template-columns: 1fr 1fr; gap:12px 20px; margin-bottom:16px; }
+    .fields label{ display:flex; flex-direction:column; font-size:12px; color: var(--ink-soft); gap:4px; }
+    .fields label.full{ grid-column: 1 / -1; }
+    .fields input, .fields textarea{ font-size:14px; padding:8px; border:1px solid #d8d3c8; border-radius:4px; font-family: inherit; }
+    .toolbar{ display:flex; gap:6px; margin-bottom:8px; }
+    .toolbar button{ border:1px solid #d8d3c8; background:#fff; padding:6px 10px; border-radius:4px; cursor:pointer; }
+    .tiptap{ background:#fff; border:1px solid #d8d3c8; border-radius:6px; padding:16px; min-height:400px; }
+    .tiptap :global(.ProseMirror){ outline:none; }
+    .actions{ display:flex; align-items:center; gap:12px; margin-top:16px; }
+    .btn-save{ background: var(--accent); color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; }
+    .btn-delete{ background:#a33; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; }
+    .status{ font-size:13px; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="/bundle.js"></script>
+</body>
+</html>
