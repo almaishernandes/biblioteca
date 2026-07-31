@@ -15,16 +15,18 @@
     .sidebar li.active{ background: var(--accent); }
     .sidebar li span{ font-size:12px; color: var(--accent-soft); }
     .btn-new{ background: var(--accent); color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; font-size:14px; }
-    .editor-pane{ flex:1; padding:24px 32px; overflow-y:auto; }
-    .fields{ display:grid; grid-template-columns: 1fr 1fr; gap:12px 20px; margin-bottom:16px; }
+    .editor-pane{ flex:1; padding:24px 32px; display:flex; flex-direction:column; min-height:0; }
+    .toggle-detalhes{ align-self:flex-start; background:none; border:none; color: var(--accent); font-size:13px; cursor:pointer; padding:0 0 10px; flex-shrink:0; }
+    .fields{ grid-template-columns: 1fr 1fr; gap:12px 20px; margin-bottom:16px; flex-shrink:0; }
     .fields label{ display:flex; flex-direction:column; font-size:12px; color: var(--ink-soft); gap:4px; }
     .fields label.full{ grid-column: 1 / -1; }
     .fields input, .fields textarea{ font-size:14px; padding:8px; border:1px solid #d8d3c8; border-radius:4px; font-family: inherit; }
-    .toolbar{ display:flex; gap:6px; margin-bottom:8px; }
-    .toolbar button{ border:1px solid #d8d3c8; background:#fff; padding:6px 10px; border-radius:4px; cursor:pointer; }
-    .tiptap{ background:#fff; border:1px solid #d8d3c8; border-radius:6px; padding:16px; min-height:400px; }
+    .editor-body{ display:flex; gap:12px; flex:1 1 auto; min-height:0; overflow-y:auto; align-items:flex-start; }
+    .toolbar{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; position:sticky; top:0; }
+    .toolbar button{ border:1px solid #d8d3c8; background:#fff; padding:8px 10px; border-radius:4px; cursor:pointer; min-width:44px; }
+    .tiptap{ background:#fff; border:1px solid #d8d3c8; border-radius:6px; padding:16px; flex:1; min-height:100%; }
     .tiptap :global(.ProseMirror){ outline:none; }
-    .actions{ display:flex; align-items:center; gap:12px; margin-top:16px; }
+    .actions{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:12px; flex-shrink:0; }
     .btn-save{ background: var(--accent); color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; }
     .btn-delete{ background:#a33; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; }
     .status{ font-size:13px; color: var(--ink-soft); }

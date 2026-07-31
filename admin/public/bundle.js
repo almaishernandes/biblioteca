@@ -45428,6 +45428,7 @@ ${element.innerHTML}
     const [form, setForm] = (0, import_react11.useState)(emptyForm);
     const [status, setStatus] = (0, import_react11.useState)("");
     const [isNew, setIsNew] = (0, import_react11.useState)(false);
+    const [mostrarDetalhes, setMostrarDetalhes] = (0, import_react11.useState)(false);
     const editor = useEditor({
       extensions: [index_default, Markdown],
       content: ""
@@ -45515,7 +45516,8 @@ ${element.innerHTML}
         ] }, l.slug)) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("main", { className: "editor-pane", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "fields", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { className: "toggle-detalhes", onClick: () => setMostrarDetalhes((v) => !v), children: mostrarDetalhes ? "\u25BE Ocultar detalhes do livro" : "\u25B8 Mostrar detalhes do livro" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "fields", style: { display: mostrarDetalhes ? "grid" : "none" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("label", { children: [
             "Slug (URL)",
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("input", { value: novoSlug, onChange: (e) => setNovoSlug(slugify(e.target.value)), placeholder: "meu-livro" })
@@ -45549,20 +45551,22 @@ ${element.innerHTML}
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("textarea", { rows: 2, value: form.descricaoCurta, onChange: (e) => setForm({ ...form, descricaoCurta: e.target.value }) })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "toolbar", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBold().run(), children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("b", { children: "B" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleItalic().run(), children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("i", { children: "I" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleHeading({ level: 1 }).run(), children: "H1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleHeading({ level: 2 }).run(), children: "H2" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBulletList().run(), children: "Lista" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBlockquote().run(), children: "Cita\xE7\xE3o" })
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "editor-body", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "toolbar", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBold().run(), children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("b", { children: "B" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleItalic().run(), children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("i", { children: "I" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleHeading({ level: 1 }).run(), children: "H1" }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleHeading({ level: 2 }).run(), children: "H2" }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBulletList().run(), children: "Lista" }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { onClick: () => editor?.chain().focus().toggleBlockquote().run(), children: "Cita\xE7\xE3o" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(EditorContent, { editor, className: "tiptap" })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(EditorContent, { editor, className: "tiptap" }),
         /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "actions", children: [
           /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { className: "btn-save", onClick: salvar, children: "Salvar" }),
-          !isNew && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { className: "btn-delete", onClick: excluir, children: "Excluir livro" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "status", children: status })
-        ] })
+          !isNew && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("button", { className: "btn-delete", onClick: excluir, children: "Excluir" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "actions", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "status", children: status }) })
       ] })
     ] });
   }

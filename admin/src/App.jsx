@@ -35,6 +35,7 @@ export default function App() {
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState('');
   const [isNew, setIsNew] = useState(false);
+  const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
 
   const editor = useEditor({
     extensions: [StarterKit, Markdown],
@@ -142,7 +143,10 @@ export default function App() {
       </aside>
 
       <main className="editor-pane">
-        <div className="fields">
+        <button className="toggle-detalhes" onClick={() => setMostrarDetalhes((v) => !v)}>
+          {mostrarDetalhes ? '▾ Ocultar detalhes do livro' : '▸ Mostrar detalhes do livro'}
+        </button>
+        <div className="fields" style={{ display: mostrarDetalhes ? 'grid' : 'none' }}>
           <label>Slug (URL)
             <input value={novoSlug} onChange={(e) => setNovoSlug(slugify(e.target.value))} placeholder="meu-livro" />
           </label>
@@ -169,19 +173,23 @@ export default function App() {
           </label>
         </div>
 
-        <div className="toolbar">
-          <button onClick={() => editor?.chain().focus().toggleBold().run()}><b>B</b></button>
-          <button onClick={() => editor?.chain().focus().toggleItalic().run()}><i>I</i></button>
-          <button onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}>H1</button>
-          <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}>H2</button>
-          <button onClick={() => editor?.chain().focus().toggleBulletList().run()}>Lista</button>
-          <button onClick={() => editor?.chain().focus().toggleBlockquote().run()}>Citação</button>
+        <div className="editor-body">
+          <div className="toolbar">
+            <button onClick={() => editor?.chain().focus().toggleBold().run()}><b>B</b></button>
+            <button onClick={() => editor?.chain().focus().toggleItalic().run()}><i>I</i></button>
+            <button onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}>H1</button>
+            <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}>H2</button>
+            <button onClick={() => editor?.chain().focus().toggleBulletList().run()}>Lista</button>
+            <button onClick={() => editor?.chain().focus().toggleBlockquote().run()}>Citação</button>
+          </div>
+          <EditorContent editor={editor} className="tiptap" />
         </div>
-        <EditorContent editor={editor} className="tiptap" />
 
         <div className="actions">
           <button className="btn-save" onClick={salvar}>Salvar</button>
-          {!isNew && <button className="btn-delete" onClick={excluir}>Excluir livro</button>}
+          {!isNew && <button className="btn-delete" onClick={excluir}>Excluir</button>}
+        </div>
+        <div className="actions">
           <span className="status">{status}</span>
         </div>
       </main>
