@@ -19,7 +19,7 @@ A Oração pelo Caminho é um livro de contemplação dos mistérios da criaçã
 
 ## A ORAÇÃO PELO CAMINHO:
 
-> ## *Façamos o homem à nossa imagem e semelhança. Deus ciou o homem à sua imagem; criou-o à imagem de Deus. O Senhor Deus tomou o homem e o colocou no jardim do Éden, para cultivar o solo e o guardar e deu-lhe este preceito: “Podes comer do fruto de todas as árvores do jardim; mas não comas do fruto da árvore da ciência do bem e do mal, porque no dia em que dele comeres, morrerás indubitavelmente.*
+> ## *Deus ciou o homem à sua imagem; criou-o à imagem de Deus. O Senhor Deus tomou o homem e o colocou no jardim do Éden, para cultivar o solo e o guardar e deu-lhe este preceito: “Podes comer do fruto de todas as árvores do jardim; mas não comas do fruto da árvore da ciência do bem e do mal, porque no dia em que dele comeres, morrerás indubitavelmente.*
 
 A presença de Deus é real na existência do homem. Deus está presente no nosso tempo, aqui e agora. Afinal de contas, Deus é eterno. Deus vive eternamente. O tempo só existe para nós seres humanos. A partir desse entendimento podemos dizer que o tempo da criação do mundo já se passou, o tempo da salvação já chegou, agora estamos no tempo da santificação. São três momentos distintos, a criação, a salvação e a santificação através da oração.
 
@@ -51,9 +51,7 @@ O homem sente vergonha de estar nu à medida que vai crescendo em estatura. A co
 
 Agora vamos falar então da árvore da vida. Conhecer o bem e o mal não podia ao ser humano, mas ele desobedeceu a esse preceito de Deus e comeu do fruto da árvore do conhecimento, por isso a morte. Olha que interessante, parece que antes da desobediência (o pecado original) não existia a morte, não existia o trabalho cansativo, pesado que levava ao desgaste... (a morte)!!! Deus disse também à mulher: ‘‘Multiplicarei os sofrimentos de teu parto; darás à luz com dores, teus desejos te impelirão para o teu marido e tu estarás sob o seu domínio”.
 
-> **Genesis 17: E disse em seguida ao homem: “Porque ouviste a voz de tua mulher e comeste do fruto da árvore que eu te havia proibido comer, maldita seja a terra por tua causa. Tirarás dela com trabalhos penosos o teu sustento todos os dias de tua vida.**
-> ****Genesis 18: Ela te produzirá espinhos e abrolhos, e tu comerás a erva da terra.**
-> ****Genesis 16: Comerás o teu pão com o suor do teu rosto, até que voltes à terra de que foste tirado; porque és pó, e pó te hás de tornar”.**
+> **Genesis 17: E disse em seguida ao homem: “Porque ouviste a voz de tua mulher e comeste do fruto da árvore que eu te havia proibido comer, maldita seja a terra por tua causa. Tirarás dela com trabalhos penosos o teu sustento todos os dias de tua vida.**\*\***Genesis 18: Ela te produzirá espinhos e abrolhos, e tu comerás a erva da terra.**\*\***Genesis 16: Comerás o teu pão com o suor do teu rosto, até que voltes à terra de que foste tirado; porque és pó, e pó te hás de tornar”.**
 
 Olha que é mais interessante ainda, parece que depois da desobediência (o pecado original) nunca saberemos o vem depois da morte, o que realmente temos certeza é que todos morrem. Onde está essa arvore da vida? Está em Genesis 24:
 
@@ -69,11 +67,11 @@ Ela te produzirá espinhos e abrolhos, e tu comerás a erva da terra. Comerás o
 
 Quer mais? Isso não basta? Isso já é demais, não é. Pense bem, tudo isso nos faz refletir o que o homem perdeu com a sua desobediência ao Criador. Se não fosse o pecado, a queda, o orgulho, o desobedecer da criação não teríamos o sofrimento, o trabalho penoso, a maldição, a morte. Apesar de tudo, a única certeza de todos é a morte.
 
-Como se a morte fosse a libertação para alcançar a vida eterna, a mesma, que quis para nós no ato da criação do mundo. Por isso, a vida na terra é uma passagem, breve. Enquanto vivermos aqui na terra, não conheceremos do fruto da arvore da vida, nem comeremos desse fruto, porque se dele comermos então morreremos para vida eterna. 
+Como se a morte fosse a libertação para alcançar a vida eterna, a mesma, que quis para nós no ato da criação do mundo. Por isso, a vida na terra é uma passagem, breve. Enquanto vivermos aqui na terra, não conheceremos do fruto da arvore da vida, nem comeremos desse fruto, porque se dele comermos então morreremos para vida eterna.
 
 Para resumir: A árvore da vida eterna é o céu. A morte eterna é o inferno. Para meditar: O que vai acontecer com você se continuar a desobedecer a Deus Criador do céu e da terra que nos deu os dez mandamentos para caminhar rumo a vida eterna?
 
-A desobediência de Adão e Eva de comer do fruto proibido é o mesmo ato de, nos dias de hoje, desobedecer a qualquer um dos dez mandamentos da lei de Deus. Por isso que nós continuamos sofrendo as consequências de um trabalho penoso e apesar da vida ser bela e maravilhosa a única certeza que temos é a morte e que após a morte ninguém sabe o que vai acontecer. 
+A desobediência de Adão e Eva de comer do fruto proibido é o mesmo ato de, nos dias de hoje, desobedecer a qualquer um dos dez mandamentos da lei de Deus. Por isso que nós continuamos sofrendo as consequências de um trabalho penoso e apesar da vida ser bela e maravilhosa a única certeza que temos é a morte e que após a morte ninguém sabe o que vai acontecer.
 
 Vamos filosofar então: Parece-me que antes do pecado original, antes da desobediência do homem e da mulher, criados a imagem e semelhança de Deus, vivíamos diante de Deus, vivíamos na presença de Deus, vivíamos na vida eterna. Mas o pecado, a desobediência, interrompeu a vida eterna, porque Deus expulsou o homem do céu, aí parece que começou contar o tempo. Esse tempo de sofrimento por causa do pecado é um tempo que se passa, então essa vida nesse é uma passagem, tudo isso passa a única coisa não passará é a morte, mas depois da morte, teremos uma passagem, ou para a vida eterna ou para o sofrimento eterno. E é esse sofrimento eterno que Deus não quis para nós, pois se o homem comer do fruto da árvore da vida ele viverá eternamente sem a presença de Deus.
 
@@ -81,8 +79,7 @@ Vamos filosofar mais: Entender a morte como uma passagem de um mundo material pa
 
 Então como compreender a Trindade de Deus? A natureza de Deus é, por definição, transcendente e incompreensível para a mente humana. A Trindade é um mistério de fé, e ter fé é confiar em Deus mesmo quando não conseguimos entender completamente. É exatamente essa confiança em Deus que faltou ao homem no momento do pecado original. E é a falta de confiança em Deus que o homem continua pecando contra Deus, desobedecendo os seus preceitos. Então vejamos:
 
-> **Genesis 2,16: Deu-lhe este preceito: “Podes comer do fruto de todas as árvores do jardim;**
-> ****Genesis 2,17: Mas não comas do fruto da árvore da ciência do bem e do mal; porque no dia em que dele comeres, morrerás indubitavelmente.**
+> **Genesis 2,16: Deu-lhe este preceito: “Podes comer do fruto de todas as árvores do jardim;**\*\***Genesis 2,17: Mas não comas do fruto da árvore da ciência do bem e do mal; porque no dia em que dele comeres, morrerás indubitavelmente.**
 
 O homem sabia que morreria se desobedecesse ao preceito de Deus. Mesmo sabendo, deixou-se influenciar por uma ação externa, um ser espiritual do mal. Seja qual for o nome dado a esse ser espiritual do mal, o demônio, satanás, ...
 
