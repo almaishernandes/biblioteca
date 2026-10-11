@@ -63,7 +63,8 @@ function Login({ onLogin }) {
 }
 
 export default function App() {
-  const [token, setToken] = useState(() => localStorage.getItem('adminToken') || null);
+  // Login temporariamente desativado a pedido do usuário.
+  const [token, setToken] = useState('sem-login');
   const [collectionKey, setCollectionKey] = useState('livros');
   const [items, setItems] = useState([]);
   const [slugAtual, setSlugAtual] = useState(null);

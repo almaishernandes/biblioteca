@@ -6,10 +6,9 @@ function env(name) {
   return v;
 }
 
-export function checkAuth(req) {
-  const header = req.headers.authorization || '';
-  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
-  return Boolean(token) && token === env('ADMIN_PASSWORD');
+// Login temporariamente desativado a pedido do usuário (sem ADMIN_PASSWORD configurada).
+export function checkAuth() {
+  return true;
 }
 
 function repoInfo() {
