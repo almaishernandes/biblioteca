@@ -1,17 +1,19 @@
 {
-  "name": "biblioteca-de-livros",
+  "name": "saberes",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run admin:build:static && astro build",
     "preview": "astro preview",
     "admin:build": "esbuild admin/src/main.jsx --bundle --outfile=admin/public/bundle.js --loader:.js=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\"",
+    "admin:build:static": "esbuild admin/src/main.jsx --bundle --outfile=public/admin/bundle.js --loader:.js=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\"",
     "admin:watch": "esbuild admin/src/main.jsx --bundle --outfile=admin/public/bundle.js --loader:.js=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\" --watch",
     "admin": "npm run admin:build && node admin/server.mjs"
   },
   "dependencies": {
-    "astro": "^4.16.0"
+    "astro": "^4.16.0",
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@tiptap/pm": "^3.29.2",
@@ -19,7 +21,6 @@
     "@tiptap/starter-kit": "^3.29.2",
     "esbuild": "^0.28.1",
     "express": "^5.2.1",
-    "gray-matter": "^4.0.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tiptap-markdown": "^0.9.0"

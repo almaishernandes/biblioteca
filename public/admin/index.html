@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin — Instituto Hernandes</title>
+  <style>
+    :root{ --paper:#FDFBF7; --ink:#2C2C2C; --ink-soft:#6b6660; --accent:#8a6d4b; --accent-soft:#cbb89a; }
+    *{ box-sizing: border-box; }
+    body{ margin:0; font-family: system-ui, sans-serif; color: var(--ink); background: #ECEAE5; }
+    .app{ display:flex; height:100vh; }
+    .sidebar{ width:260px; background: var(--ink); color: var(--paper); display:flex; flex-direction:column; padding:16px; overflow-y:auto; flex-shrink:0; }
+    .sidebar ul{ list-style:none; padding:0; margin:12px 0 0; }
+    .sidebar li{ padding:10px 8px; border-radius:6px; cursor:pointer; display:flex; flex-direction:column; gap:2px; }
+    .sidebar li:hover{ background: rgba(255,255,255,0.08); }
+    .sidebar li.active{ background: var(--accent); }
+    .sidebar li span{ font-size:12px; color: var(--accent-soft); }
+    .btn-new{ background: var(--accent); color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; font-size:14px; }
+    .editor-pane{ flex:1; padding:24px 32px; display:flex; flex-direction:column; min-height:0; }
+    .toggle-detalhes{ align-self:flex-start; background:none; border:none; color: var(--accent); font-size:13px; cursor:pointer; padding:0 0 10px; flex-shrink:0; }
+    .fields{ grid-template-columns: 1fr 1fr; gap:12px 20px; margin-bottom:16px; flex-shrink:0; }
+    .fields label{ display:flex; flex-direction:column; font-size:12px; color: var(--ink-soft); gap:4px; }
+    .fields label.full{ grid-column: 1 / -1; }
+    .fields input, .fields textarea{ font-size:14px; padding:8px; border:1px solid #d8d3c8; border-radius:4px; font-family: inherit; }
+    .editor-body{ display:flex; gap:12px; flex:1 1 auto; min-height:0; overflow-y:auto; align-items:flex-start; }
+    .toolbar{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; position:sticky; top:0; }
+    .toolbar button{ border:1px solid #d8d3c8; background:#fff; padding:8px 10px; border-radius:4px; cursor:pointer; min-width:44px; }
+    .tiptap{ background:#fff; border:1px solid #d8d3c8; border-radius:6px; padding:16px; flex:1; min-height:100%; }
+    .tiptap :global(.ProseMirror){ outline:none; }
+    .actions{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:12px; flex-shrink:0; }
+    .btn-save{ background: var(--accent); color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; }
+    .btn-delete{ background:#a33; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; }
+    .status{ font-size:13px; color: var(--ink-soft); }
+    .tabs{ display:flex; gap:6px; margin-bottom:12px; }
+    .tabs .tab{ flex:1; background:none; border:1px solid rgba(255,255,255,0.2); color: var(--paper); padding:6px 4px; border-radius:6px; cursor:pointer; font-size:12px; }
+    .tabs .tab.active{ background: var(--accent); border-color: var(--accent); }
+    .login-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; background:#ECEAE5; }
+    .login-box{ background:#fff; padding:32px; border-radius:8px; display:flex; flex-direction:column; gap:12px; width:280px; box-shadow:0 10px 30px rgba(0,0,0,0.15); }
+    .login-box h1{ font-size:16px; margin:0 0 6px; color: var(--ink); }
+    .login-box input{ padding:10px; border:1px solid #d8d3c8; border-radius:4px; font-size:14px; }
+    .login-box button{ background: var(--accent); color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; }
+    .login-error{ color:#a33; font-size:12px; margin:0; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="bundle.js"></script>
+</body>
+</html>

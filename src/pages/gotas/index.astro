@@ -1,0 +1,146 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const gotas = (await getCollection('gotas')).sort(
+  (a, b) => b.data.dataPublicacao.valueOf() - a.data.dataPublicacao.valueOf()
+);
+
+const categorias = [...new Set(gotas.map((g) => g.data.categoria))];
+---
+<Layout title="Gota a Gota — Instituto Hernandes">
+  <header>
+    <nav class="topnav">
+      <a href="/">Saberes</a>
+      <a href="/gotas/" class="active">Gota a Gota</a>
+    </nav>
+    <h1>Gota a Gota</h1>
+    <p>Vídeos curtos, conhecimento rico e específico sobre um assunto por vez</p>
+  </header>
+
+  <div class="filters">
+    <button class="chip active" data-cat="todas">Todas</button>
+    {categorias.map((c) => (
+      <button class="chip" data-cat={c}>{c}</button>
+    ))}
+  </div>
+
+  <div class="gota-grid">
+    {gotas.map((gota) => (
+      <a class="gota-card" href={`/gotas/${gota.slug}/`} data-cat={gota.data.categoria}>
+        <div class="gota-thumb" style={gota.data.capa ? `background-image:url(${gota.data.capa})` : ''}>
+          <span class="gota-dur">{gota.data.duracao}</span>
+          <span class="gota-play">▶</span>
+        </div>
+        <div class="gota-info">
+          <span class="gota-assunto">{gota.data.assunto}</span>
+          <h3>{gota.data.titulo}</h3>
+          <p>{gota.data.descricaoCurta}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <script>
+    const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+    const cards = document.querySelectorAll<HTMLAnchorElement>('.gota-card');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        const cat = chip.dataset.cat;
+        cards.forEach((card) => {
+          card.style.display = cat === 'todas' || card.dataset.cat === cat ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</Layout>
+
+<style>
+  header{ text-align: center; padding: 20px 20px 10px; }
+  .topnav{ display: flex; justify-content: center; gap: 18px; margin-bottom: 18px; }
+  .topnav a{
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--ink-soft);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+  .topnav a.active{ color: var(--accent); border-color: var(--accent); }
+  header h1{ font-family: 'Merriweather', Georgia, serif; color: var(--accent); font-size: 28px; margin: 0 0 6px; }
+  header p{ color: var(--ink-soft); font-size: 13px; margin: 0; }
+
+  .filters{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 900px;
+    margin: 18px auto 0;
+    padding: 0 20px;
+  }
+  .chip{
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: transparent;
+    border: 1px solid var(--accent-soft);
+    color: var(--ink-soft);
+    border-radius: 16px;
+    padding: 5px 14px;
+    cursor: pointer;
+  }
+  .chip.active{ background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+  .gota-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 22px;
+    max-width: 1000px;
+    margin: 28px auto;
+    padding: 0 20px 60px;
+  }
+  .gota-card{ text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+  .gota-thumb{
+    background-color: #2C2C2C;
+    background-size: cover;
+    background-position: center;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+    position: relative;
+    transition: transform .15s ease;
+  }
+  .gota-card:hover .gota-thumb{ transform: translateY(-4px); }
+  .gota-dur{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 10px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 8px;
+  }
+  .gota-play{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255,255,255,0.85);
+    font-size: 28px;
+  }
+  .gota-info{ margin-top: 8px; }
+  .gota-assunto{
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+  }
+  .gota-info h3{ font-size: 14px; margin: 4px 0 0; }
+  .gota-info p{ font-size: 12px; color: var(--ink-soft); margin: 4px 0 0; }
+</style>

@@ -6,39 +6,65 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const livrosDir = path.join(root, 'src/content/livros');
+const contentRoot = path.join(root, 'src/content');
+const DEV_PASSWORD = process.env.ADMIN_PASSWORD || null;
+
+const COLLECTIONS = ['livros', 'gotas'];
 
 const app = express();
 app.use(express.json({ limit: '5mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+function dirFor(collection) {
+  return path.join(contentRoot, collection);
+}
+
 function slugFromFile(file) {
   return file.replace(/\.md$/, '');
 }
 
-app.get('/api/livros', (req, res) => {
-  const files = fs.readdirSync(livrosDir).filter((f) => f.endsWith('.md'));
-  const livros = files.map((file) => {
-    const raw = fs.readFileSync(path.join(livrosDir, file), 'utf-8');
+function requireValidCollection(req, res, next) {
+  if (!COLLECTIONS.includes(req.params.collection)) {
+    return res.status(404).json({ error: 'coleção inválida' });
+  }
+  next();
+}
+
+app.post('/api/login', (req, res) => {
+  const { password } = req.body || {};
+  if (!DEV_PASSWORD || password === DEV_PASSWORD) {
+    return res.json({ ok: true });
+  }
+  res.status(401).json({ error: 'senha incorreta' });
+});
+
+app.param('collection', requireValidCollection);
+
+app.get('/api/:collection', (req, res) => {
+  const dir = dirFor(req.params.collection);
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
+  const items = files.map((file) => {
+    const raw = fs.readFileSync(path.join(dir, file), 'utf-8');
     const { data } = matter(raw);
     return { slug: slugFromFile(file), ...data };
   });
-  res.json(livros);
+  res.json(items);
 });
 
-app.get('/api/livros/:slug', (req, res) => {
-  const file = path.join(livrosDir, `${req.params.slug}.md`);
+app.get('/api/:collection/:slug', (req, res) => {
+  const file = path.join(dirFor(req.params.collection), `${req.params.slug}.md`);
   if (!fs.existsSync(file)) return res.status(404).json({ error: 'not found' });
   const raw = fs.readFileSync(file, 'utf-8');
   const { data, content } = matter(raw);
   res.json({ slug: req.params.slug, data, content });
 });
 
-app.post('/api/livros/:slug', (req, res) => {
+app.post('/api/:collection/:slug', (req, res) => {
+  const dir = dirFor(req.params.collection);
   const { data, content, novoSlug } = req.body;
-  const currentFile = path.join(livrosDir, `${req.params.slug}.md`);
+  const currentFile = path.join(dir, `${req.params.slug}.md`);
   const targetSlug = novoSlug || req.params.slug;
-  const targetFile = path.join(livrosDir, `${targetSlug}.md`);
+  const targetFile = path.join(dir, `${targetSlug}.md`);
 
   if (!/^[a-z0-9-]+$/.test(targetSlug)) {
     return res.status(400).json({ error: 'slug inválido (use apenas letras minúsculas, números e hífen)' });
@@ -57,14 +83,15 @@ app.post('/api/livros/:slug', (req, res) => {
   res.json({ ok: true, slug: targetSlug });
 });
 
-app.post('/api/livros', (req, res) => {
+app.post('/api/:collection', (req, res) => {
+  const dir = dirFor(req.params.collection);
   const { slug, data, content } = req.body;
   if (!/^[a-z0-9-]+$/.test(slug)) {
     return res.status(400).json({ error: 'slug inválido (use apenas letras minúsculas, números e hífen)' });
   }
-  const file = path.join(livrosDir, `${slug}.md`);
+  const file = path.join(dir, `${slug}.md`);
   if (fs.existsSync(file)) {
-    return res.status(409).json({ error: 'já existe um livro com esse slug' });
+    return res.status(409).json({ error: 'já existe um item com esse slug' });
   }
   const front = { ...data };
   if (front.dataPublicacao) front.dataPublicacao = new Date(front.dataPublicacao);
@@ -72,13 +99,13 @@ app.post('/api/livros', (req, res) => {
   res.json({ ok: true, slug });
 });
 
-app.delete('/api/livros/:slug', (req, res) => {
-  const file = path.join(livrosDir, `${req.params.slug}.md`);
+app.delete('/api/:collection/:slug', (req, res) => {
+  const file = path.join(dirFor(req.params.collection), `${req.params.slug}.md`);
   if (fs.existsSync(file)) fs.unlinkSync(file);
   res.json({ ok: true });
 });
 
 const PORT = 4555;
 app.listen(PORT, () => {
-  console.log(`\nEditor de livros rodando em http://localhost:${PORT}\n`);
+  console.log(`\nAdmin rodando em http://localhost:${PORT}\n`);
 });

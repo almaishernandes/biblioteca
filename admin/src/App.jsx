@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from 'tiptap-markdown';
+import { COLLECTIONS } from './collections';
 
 function slugify(str) {
   return str
@@ -12,27 +13,63 @@ function slugify(str) {
     .replace(/^-+|-+$/g, '');
 }
 
-const emptyForm = {
-  titulo: '',
-  subtitulo: '',
-  autor: '',
-  categoria: '',
-  capa: '',
-  descricaoCurta: '',
-  dataPublicacao: new Date().toISOString().slice(0, 10),
-};
-
 function toDateInput(d) {
   if (!d) return new Date().toISOString().slice(0, 10);
   const date = new Date(d);
   return Number.isNaN(date.getTime()) ? new Date().toISOString().slice(0, 10) : date.toISOString().slice(0, 10);
 }
 
+function Login({ onLogin }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function entrar(e) {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) throw new Error('Senha incorreta.');
+      localStorage.setItem('adminToken', password);
+      onLogin(password);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="login-screen">
+      <form onSubmit={entrar} className="login-box">
+        <h1>Admin — Instituto Hernandes</h1>
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoFocus
+        />
+        <button type="submit" disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}</button>
+        {error && <p className="login-error">{error}</p>}
+      </form>
+    </div>
+  );
+}
+
 export default function App() {
-  const [livros, setLivros] = useState([]);
+  const [token, setToken] = useState(() => localStorage.getItem('adminToken') || null);
+  const [collectionKey, setCollectionKey] = useState('livros');
+  const [items, setItems] = useState([]);
   const [slugAtual, setSlugAtual] = useState(null);
   const [novoSlug, setNovoSlug] = useState('');
-  const [form, setForm] = useState(emptyForm);
+  const config = COLLECTIONS[collectionKey];
+  const [form, setForm] = useState(config.empty);
   const [status, setStatus] = useState('');
   const [isNew, setIsNew] = useState(false);
   const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
@@ -42,43 +79,65 @@ export default function App() {
     content: '',
   });
 
+  const authFetch = useCallback((url, opts = {}) => {
+    return fetch(url, {
+      ...opts,
+      headers: { ...(opts.headers || {}), Authorization: `Bearer ${token}` },
+    }).then(async (res) => {
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        setToken(null);
+        throw new Error('Sessão expirada, faça login novamente.');
+      }
+      return res;
+    });
+  }, [token]);
+
   const carregarLista = useCallback(() => {
-    fetch('/api/livros')
+    if (!token) return;
+    authFetch(`/api/${collectionKey}`)
       .then((r) => r.json())
       .then((data) => data.sort((a, b) => (a.titulo || '').localeCompare(b.titulo || '')))
-      .then(setLivros);
-  }, []);
+      .then(setItems)
+      .catch(() => {});
+  }, [authFetch, collectionKey, token]);
 
   useEffect(() => {
     carregarLista();
   }, [carregarLista]);
 
-  function abrirLivro(slug) {
-    fetch(`/api/livros/${slug}`)
+  useEffect(() => {
+    setForm(config.empty);
+    setSlugAtual(null);
+    setNovoSlug('');
+    setIsNew(false);
+    editor?.commands.setContent('');
+    setStatus('');
+  }, [collectionKey]);
+
+  function abrirItem(slug) {
+    authFetch(`/api/${collectionKey}/${slug}`)
       .then((r) => r.json())
       .then(({ data, content }) => {
         setSlugAtual(slug);
         setNovoSlug(slug);
         setIsNew(false);
-        setForm({
-          titulo: data.titulo || '',
-          subtitulo: data.subtitulo || '',
-          autor: data.autor || '',
-          categoria: data.categoria || '',
-          capa: data.capa || '',
-          descricaoCurta: data.descricaoCurta || '',
-          dataPublicacao: toDateInput(data.dataPublicacao),
-        });
+        const filled = { ...config.empty };
+        for (const key of Object.keys(filled)) {
+          filled[key] = key === 'dataPublicacao' ? toDateInput(data[key]) : (data[key] || '');
+        }
+        setForm(filled);
         editor?.commands.setContent(content || '');
         setStatus('');
-      });
+      })
+      .catch((e) => setStatus('Erro: ' + e.message));
   }
 
-  function novoLivro() {
+  function novoItem() {
     setSlugAtual(null);
     setNovoSlug('');
     setIsNew(true);
-    setForm(emptyForm);
+    setForm(config.empty);
     editor?.commands.setContent('');
     setStatus('');
   }
@@ -97,13 +156,13 @@ export default function App() {
     try {
       let res;
       if (isNew) {
-        res = await fetch('/api/livros', {
+        res = await authFetch(`/api/${collectionKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ slug, ...payload }),
         });
       } else {
-        res = await fetch(`/api/livros/${slugAtual}`, {
+        res = await authFetch(`/api/${collectionKey}/${slugAtual}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ novoSlug: slug, ...payload }),
@@ -111,7 +170,7 @@ export default function App() {
       }
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'erro ao salvar');
-      setStatus('Salvo! Agora rode git add / commit / push para publicar.');
+      setStatus('Salvo! O deploy automático vai publicar em instantes.');
       setSlugAtual(json.slug);
       setIsNew(false);
       carregarLista();
@@ -122,21 +181,36 @@ export default function App() {
 
   async function excluir() {
     if (!slugAtual) return;
-    if (!confirm(`Excluir "${form.titulo}"? Isso apaga o arquivo .md.`)) return;
-    await fetch(`/api/livros/${slugAtual}`, { method: 'DELETE' });
-    novoLivro();
+    if (!confirm(`Excluir "${form.titulo}"? Isso apaga o arquivo.`)) return;
+    await authFetch(`/api/${collectionKey}/${slugAtual}`, { method: 'DELETE' });
+    novoItem();
     carregarLista();
+  }
+
+  if (!token) {
+    return <Login onLogin={setToken} />;
   }
 
   return (
     <div className="app">
       <aside className="sidebar">
-        <button className="btn-new" onClick={novoLivro}>+ Novo livro</button>
+        <div className="tabs">
+          {Object.entries(COLLECTIONS).map(([key, c]) => (
+            <button
+              key={key}
+              className={key === collectionKey ? 'tab active' : 'tab'}
+              onClick={() => setCollectionKey(key)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+        <button className="btn-new" onClick={novoItem}>{config.newLabel}</button>
         <ul>
-          {livros.map((l) => (
-            <li key={l.slug} className={l.slug === slugAtual ? 'active' : ''} onClick={() => abrirLivro(l.slug)}>
-              <strong>{l.titulo || l.slug}</strong>
-              <span>{l.autor}</span>
+          {items.map((item) => (
+            <li key={item.slug} className={item.slug === slugAtual ? 'active' : ''} onClick={() => abrirItem(item.slug)}>
+              <strong>{config.listTitle(item) || item.slug}</strong>
+              <span>{config.listSubtitle(item)}</span>
             </li>
           ))}
         </ul>
@@ -144,33 +218,31 @@ export default function App() {
 
       <main className="editor-pane">
         <button className="toggle-detalhes" onClick={() => setMostrarDetalhes((v) => !v)}>
-          {mostrarDetalhes ? '▾ Ocultar detalhes do livro' : '▸ Mostrar detalhes do livro'}
+          {mostrarDetalhes ? '▾ Ocultar detalhes' : '▸ Mostrar detalhes'}
         </button>
         <div className="fields" style={{ display: mostrarDetalhes ? 'grid' : 'none' }}>
           <label>Slug (URL)
-            <input value={novoSlug} onChange={(e) => setNovoSlug(slugify(e.target.value))} placeholder="meu-livro" />
+            <input value={novoSlug} onChange={(e) => setNovoSlug(slugify(e.target.value))} placeholder="meu-item" />
           </label>
-          <label>Título
-            <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} />
-          </label>
-          <label>Subtítulo
-            <input value={form.subtitulo} onChange={(e) => setForm({ ...form, subtitulo: e.target.value })} />
-          </label>
-          <label>Autor
-            <input value={form.autor} onChange={(e) => setForm({ ...form, autor: e.target.value })} />
-          </label>
-          <label>Categoria
-            <input value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} />
-          </label>
-          <label>Capa (caminho)
-            <input value={form.capa} onChange={(e) => setForm({ ...form, capa: e.target.value })} placeholder="/capas/meu-livro.jpg" />
-          </label>
-          <label>Data de publicação
-            <input type="date" value={form.dataPublicacao} onChange={(e) => setForm({ ...form, dataPublicacao: e.target.value })} />
-          </label>
-          <label className="full">Descrição curta
-            <textarea rows={2} value={form.descricaoCurta} onChange={(e) => setForm({ ...form, descricaoCurta: e.target.value })} />
-          </label>
+          {config.fields.map((f) => (
+            <label key={f.key} className={f.full ? 'full' : ''}>
+              {f.label}
+              {f.type === 'textarea' ? (
+                <textarea
+                  rows={2}
+                  value={form[f.key]}
+                  onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
+                />
+              ) : (
+                <input
+                  type={f.type || 'text'}
+                  value={form[f.key]}
+                  placeholder={f.placeholder}
+                  onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
+                />
+              )}
+            </label>
+          ))}
         </div>
 
         <div className="editor-body">

@@ -6,9 +6,13 @@ const livros = (await getCollection('livros')).sort(
   (a, b) => b.data.dataPublicacao.valueOf() - a.data.dataPublicacao.valueOf()
 );
 ---
-<Layout title="Biblioteca de Livros — Instituto Hernandes">
+<Layout title="Saberes — Instituto Hernandes">
   <header>
-    <h1>Biblioteca de Livros</h1>
+    <nav class="topnav">
+      <a href="/" class="active">Saberes</a>
+      <a href="/gotas/">Gota a Gota</a>
+    </nav>
+    <h1>Saberes</h1>
     <p>Instituto Hernandes</p>
   </header>
 
@@ -31,6 +35,17 @@ const livros = (await getCollection('livros')).sort(
 
 <style>
   header{ text-align: center; padding: 50px 20px 20px; }
+  .topnav{ display: flex; justify-content: center; gap: 18px; margin-bottom: 18px; }
+  .topnav a{
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--ink-soft);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+  .topnav a.active{ color: var(--accent); border-color: var(--accent); }
   header h1{ font-family: 'Merriweather', Georgia, serif; color: var(--accent); font-size: 28px; margin: 0 0 6px; }
   header p{ color: var(--ink-soft); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin: 0; }
 

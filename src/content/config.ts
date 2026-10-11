@@ -13,4 +13,18 @@ const livros = defineCollection({
   }),
 });
 
-export const collections = { livros };
+const gotas = defineCollection({
+  type: 'content',
+  schema: z.object({
+    titulo: z.string(),
+    assunto: z.string(),
+    categoria: z.string(),
+    duracao: z.string().optional(),
+    videoUrl: z.string(),
+    capa: z.string().optional(),
+    descricaoCurta: z.string(),
+    dataPublicacao: z.date(),
+  }),
+});
+
+export const collections = { livros, gotas };

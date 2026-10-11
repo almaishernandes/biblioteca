@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Editor de Livros — Biblioteca</title>
+  <title>Admin — Saberes</title>
   <style>
     :root{ --paper:#FDFBF7; --ink:#2C2C2C; --ink-soft:#6b6660; --accent:#8a6d4b; --accent-soft:#cbb89a; }
     *{ box-sizing: border-box; }
@@ -30,6 +30,15 @@
     .btn-save{ background: var(--accent); color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; }
     .btn-delete{ background:#a33; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; }
     .status{ font-size:13px; color: var(--ink-soft); }
+    .tabs{ display:flex; gap:6px; margin-bottom:12px; }
+    .tabs .tab{ flex:1; background:none; border:1px solid rgba(255,255,255,0.2); color: var(--paper); padding:6px 4px; border-radius:6px; cursor:pointer; font-size:12px; }
+    .tabs .tab.active{ background: var(--accent); border-color: var(--accent); }
+    .login-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; background:#ECEAE5; }
+    .login-box{ background:#fff; padding:32px; border-radius:8px; display:flex; flex-direction:column; gap:12px; width:280px; box-shadow:0 10px 30px rgba(0,0,0,0.15); }
+    .login-box h1{ font-size:16px; margin:0 0 6px; color: var(--ink); }
+    .login-box input{ padding:10px; border:1px solid #d8d3c8; border-radius:4px; font-size:14px; }
+    .login-box button{ background: var(--accent); color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; }
+    .login-error{ color:#a33; font-size:12px; margin:0; }
   </style>
 </head>
 <body>

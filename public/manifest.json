@@ -1,7 +1,7 @@
 {
-  "name": "Biblioteca de Livros — Instituto Hernandes",
-  "short_name": "Biblioteca",
-  "description": "Biblioteca de livros do Instituto Hernandes",
+  "name": "Saberes — Instituto Hernandes",
+  "short_name": "Saberes",
+  "description": "Saberes do Instituto Hernandes",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

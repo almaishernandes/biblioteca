@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const gotas = await getCollection('gotas');
+  return gotas.map((gota) => ({
+    params: { slug: gota.slug },
+    props: { gota },
+  }));
+}
+
+const { gota } = Astro.props;
+const { Content } = await render(gota);
+const isEmbed = /youtube\.com|youtu\.be|vimeo\.com/.test(gota.data.videoUrl);
+---
+<Layout title={`${gota.data.titulo} — Gota a Gota`}>
+  <a class="back-link" href="/gotas/">← Voltar ao Gota a Gota</a>
+
+  <div class="watch">
+    <div class="player">
+      {isEmbed ? (
+        <iframe
+          src={gota.data.videoUrl}
+          title={gota.data.titulo}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      ) : (
+        <video src={gota.data.videoUrl} controls poster={gota.data.capa}></video>
+      )}
+    </div>
+
+    <div class="meta">
+      <span class="assunto">{gota.data.assunto} · {gota.data.categoria}</span>
+      <h1>{gota.data.titulo}</h1>
+      <p class="desc">{gota.data.descricaoCurta}</p>
+    </div>
+
+    <div class="content">
+      <Content />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .back-link{
+    display: block;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 16px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .back-link:hover{ color: var(--accent); }
+
+  .watch{ max-width: 640px; margin: 0 auto; padding: 16px 16px 60px; }
+  .player{
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .player iframe, .player video{ width: 100%; height: 100%; border: 0; display: block; }
+
+  .meta{ padding: 20px 4px 0; }
+  .assunto{ font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); }
+  .meta h1{ font-family: 'Merriweather', Georgia, serif; font-size: 22px; margin: 6px 0; }
+  .desc{ color: var(--ink-soft); font-size: 14px; margin: 0; }
+
+  .content{
+    margin-top: 24px;
+    background: var(--paper);
+    border-radius: 6px;
+    padding: 24px 28px;
+    font-size: 16px;
+    line-height: 1.8;
+    box-shadow: 0 6px 20px rgba(60,50,30,0.12);
+  }
+</style>
