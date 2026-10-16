@@ -14,8 +14,8 @@ const { gota } = Astro.props;
 const { Content } = await render(gota);
 const isEmbed = /youtube\.com|youtu\.be|vimeo\.com/.test(gota.data.videoUrl);
 ---
-<Layout title={`${gota.data.titulo} — Gota a Gota`}>
-  <a class="back-link" href="/gotas/">← Voltar ao Gota a Gota</a>
+<Layout title={`${gota.data.titulo} — Contra-Gotas`}>
+  <a class="back-link" href="/gotas/">← Voltar ao Contra-Gotas</a>
 
   <div class="watch">
     <div class="player">

@@ -24,7 +24,7 @@ export const COLLECTIONS = {
     listSubtitle: (data) => data.autor,
   },
   gotas: {
-    label: 'Gota a Gota',
+    label: 'Contra-Gotas',
     newLabel: '+ Novo vídeo',
     fields: [
       { key: 'titulo', label: 'Título' },

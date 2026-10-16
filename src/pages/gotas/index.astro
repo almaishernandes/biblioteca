@@ -8,13 +8,13 @@ const gotas = (await getCollection('gotas')).sort(
 
 const categorias = [...new Set(gotas.map((g) => g.data.categoria))];
 ---
-<Layout title="Gota a Gota — Instituto Hernandes">
+<Layout title="Contra-Gotas — Instituto Hernandes">
   <header>
     <nav class="topnav">
       <a href="/">Saberes</a>
-      <a href="/gotas/" class="active">Gota a Gota</a>
+      <a href="/gotas/" class="active">Contra-Gotas</a>
     </nav>
-    <h1>Gota a Gota</h1>
+    <h1>Contra-Gotas</h1>
     <p>Vídeos curtos, conhecimento rico e específico sobre um assunto por vez</p>
   </header>
 
